@@ -19,9 +19,12 @@ app.use(logger)
 /**
  * routes
  */
-app.use('/api/register', require(''))
+app.get('/', (req, res) => {
+  res.send('<div><h1>GIF API</h1><a href="https://my-gifs.vercel.app/">See app gifs</a></div>')
+})
+app.use('/api/register', require('./routes/register'))
 app.use('/api/login', require('./routes/login'))
-app.use('/api/favs', require(''))
+app.use('/api/favs', require('./routes/favs'))
 /**
  * routes test
  */
