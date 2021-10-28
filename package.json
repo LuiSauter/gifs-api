@@ -1,0 +1,32 @@
+{
+  "name": "gifs-api",
+  "version": "1.0.0",
+  "description": "api for app gifs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npm run lint",
+    "start": "NODE_ENV=production node index.js"
+  },
+  "keywords": [],
+  "author": "luis gabriel",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.12",
+    "mongoose-unique-validator": "^3.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.1.0",
+    "nodemon": "^2.0.14",
+    "standard": "^16.0.4"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json"
+  }
+}
