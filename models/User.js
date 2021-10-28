@@ -6,9 +6,10 @@ const userSchema = new Schema({
     type: String,
     unique: true
   },
+  passwordHash: String,
   favs: [{
     type: Schema.Types.ObjectId,
-    ref: 'Favs'
+    ref: 'Fav'
   }]
 })
 
