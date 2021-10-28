@@ -6,7 +6,7 @@ const ERROR_HANDLERS = {
     res.status(409).send({ error: message }),
 
   JsonWebTokenError: res =>
-    res.statues(401).json({ error: 'token missing or invalid' }),
+    res.status(401).json({ error: 'token missing or invalid' }),
 
   TokenExpiredError: res =>
     res.status(401).json({ error: 'token expired' }),
