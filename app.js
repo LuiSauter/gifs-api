@@ -13,18 +13,22 @@ const handleErrors = require('./middleware/handleErrors')
 app.use(cors())
 app.use(express.json())
 app.use(logger)
-// for template
+
+/**
+ * for template
+ */
 // app.use(express.static('./template/example'))
 
 /**
  * routes
  */
 app.get('/', (req, res) => {
-  res.send('<div><h1>GIF API</h1><a href="https://my-gifs.vercel.app/">See app gifs</a></div>')
+  res.send('<div><h1 style="color: #123; font-family: sans-serif">GIF API</h1></div>')
 })
 app.use('/api/register', require('./routes/register'))
 app.use('/api/login', require('./routes/login'))
 app.use('/api/favs', require('./routes/favs'))
+
 /**
  * routes test
  */

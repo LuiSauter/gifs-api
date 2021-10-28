@@ -6,9 +6,7 @@ const loginCtrl = {}
 loginCtrl.login = async (req, res) => {
   const { body } = req
   const { username, password } = body
-
   const user = await UserModel.findOne({ username })
-  console.log(user)
   const passwordCorrect = user === null
     ? false
     : await bcrypt.compare(password, user.passwordHash)
@@ -25,12 +23,10 @@ loginCtrl.login = async (req, res) => {
       expiresIn: 60 * 60 * 24 * 7 // 7 days
     }
   )
-
   res.send({
     username: user.username,
     token
   })
-
 }
 
 module.exports = loginCtrl
