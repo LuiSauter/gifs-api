@@ -1,7 +1,10 @@
 const { Schema, model } = require('mongoose')
 
 const favSchema = new Schema({
-  fav: String,
+  fav: {
+    type: String,
+    unique: true
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User'

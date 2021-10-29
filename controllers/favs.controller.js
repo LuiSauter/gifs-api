@@ -14,27 +14,26 @@ favsCtrl.postFavs = async (req, res, next) => {
   const { fav } = req.body
   const { userId } = req
   const user = await UserModel.findById(userId)
-  const favorites = await FavModel.find({})
-  const alreadyExist = favorites.some(favM => favM === fav)
+  // const favorites = await FavModel.find({})
+  // const alreadyExist = favorites.some(favM => favM === fav)
   if (!fav) {
     return res.status(404).json({ error: 'required "fav" field is missing' })
   }
+  const newFav =new FavModel({
+    fav,
+    user: user._id
+  })
   try {
-    const newFav =new FavModel({
-      fav,
-      user: user._id
-    })
-    if (!alreadyExist) {
-      const savedFav = await newFav.save()
-      user.favs = user.favs.concat(savedFav._id)
-      await user.save()
-      res.json(savedFav)
-    }
+    const savedFav = await newFav.save()
+    console.log(savedFav._id, 'SAVEDFAV ID')
+    user.favs = user.favs.concat(savedFav._id)
+    await user.save()
+    res.json(savedFav)
   } catch (error) {
     next(error)
   }
-
 }
+
 favsCtrl.deleteFavs = async (req, res, next) => {
   try {
     const { id } = req.params
