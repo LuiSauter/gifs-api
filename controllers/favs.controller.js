@@ -37,7 +37,8 @@ favsCtrl.postFavs = async (req, res, next) => {
 favsCtrl.deleteFavs = async (req, res, next) => {
   try {
     const { id } = req.params
-    await FavModel.findByIdAndDelete(id)
+    console.log(req.params, 'help Debug')
+    await FavModel.findOneAndDelete(id)
     res.status(204).end()
   } catch (error) {
     next(error)
