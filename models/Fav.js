@@ -3,13 +3,13 @@ const { Schema, model } = require('mongoose')
 const favSchema = new Schema({
   fav: {
     type: String,
-    unique: true
+    required: true
   },
   user: {
-    type: Schema.Types.ObjectId,
-    ref: 'User'
+    type: String,
+    required: true
   }
-})
+}, { timestamps: true})
 
 favSchema.set('toJSON', {
   transform: (document, returnedObject) => {

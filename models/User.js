@@ -1,19 +1,33 @@
-const uniqueValidator = require('mongoose-unique-validator')
+// const uniqueValidator = require('mongoose-unique-validator')
 const { Schema, model } = require('mongoose')
+const bcrypt = require('bcrypt')
 
-const userSchema = new Schema({
-  username: {
+const UserSchema = new Schema({
+  name: {
     type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true,
     unique: true
   },
-  passwordHash: String,
-  favs: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Fav'
-  }]
-})
+  password: {
+    type: String,
+    required: true
+  }
+}, { timestamps: true })
+// bcrypt || Encryption
+UserSchema.methods.encryptPassword = async password => {
+  const salt = await bcrypt.genSalt(10)
+  return await bcrypt.hash(password, salt)
+}
+// Validation || Compare
+UserSchema.methods.matchPassword = async function(password) {
+  return await bcrypt.compare(password, this.password)
+} // boolean
 
-userSchema.set('toJSON', {
+UserSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id
     delete returnedObject._id
@@ -22,7 +36,7 @@ userSchema.set('toJSON', {
   }
 })
 
-userSchema.plugin(uniqueValidator)
-const User = model('User', userSchema)
+// UserSchema.plugin(uniqueValidator)
+const User = model('User', UserSchema)
 
 module.exports = User
