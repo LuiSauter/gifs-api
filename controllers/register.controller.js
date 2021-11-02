@@ -15,14 +15,14 @@ usersCtrl.signup = async (req, res) => {
     newUser.confirm_password = confirm_password
     newUser.name = name
     newUser.message = 'Passwords do not match'
-    return res.status(400).json(newUser)
+    return res.json(newUser)
   }
-  if (password.length < 4) {
+  if (password.length < 8) {
     newUser.password = password
     newUser.confirm_password = confirm_password
     newUser.name = name
     newUser.message = 'Passwords must be at least 4 characters'
-    return res.status(400).json(newUser)
+    return res.json(newUser)
   }
 
   const emailUser = await User.findOne({ email: email })
@@ -32,7 +32,7 @@ usersCtrl.signup = async (req, res) => {
     newUser.confirm_password = confirm_password
     newUser.name = name
     newUser.message = 'The email is already in use.'
-    return res.status(400).json(newUser)
+    return res.json(newUser)
   }
   const newObjectUser = new User({ name, email, password })
   newObjectUser.password = await newObjectUser.encryptPassword(password)
@@ -42,7 +42,7 @@ usersCtrl.signup = async (req, res) => {
   console.log(newObjectUser)
   console.log('**********SIGNUP**********')
   newUser.message = 'Signup Successfuly!'
-  res.send(newUser)
+  res.status(201).json(newUser)
 }
 
 usersCtrl.signin = async (req, res) => {
@@ -58,6 +58,7 @@ usersCtrl.logout = async (req, res) => {
 }
 
 usersCtrl.deleteUser = async (req, res) => {
+  await User.findByIdAndDelete(req.user.id)
   await FavModel.deleteMany({ user: req.user.id })
   res.status(204).end()
 }
