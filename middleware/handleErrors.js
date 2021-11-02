@@ -17,6 +17,5 @@ const ERROR_HANDLERS = {
 module.exports = (error, request, response, next) => {
   console.error(error.name, 'this is a error name *Lg*')
   const handler = ERROR_HANDLERS[error.name] || ERROR_HANDLERS.defaultError
-
   handler(response, error)
 }
