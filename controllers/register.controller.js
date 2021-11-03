@@ -13,16 +13,10 @@ usersCtrl.signup = async (req, res) => {
   console.log(req.body)
   console.log('************bodyRegister************')
   if (password !== confirm_password) {
-    newUser.password = password
-    newUser.confirm_password = confirm_password
-    newUser.name = name
     newUser.message = 'Passwords do not match'
     return res.json(newUser)
   }
   if (password.length < 8) {
-    newUser.password = password
-    newUser.confirm_password = confirm_password
-    newUser.name = name
     newUser.message = 'Passwords must be at least 4 characters'
     return res.json(newUser)
   }
@@ -30,9 +24,6 @@ usersCtrl.signup = async (req, res) => {
   const emailUser = await User.findOne({ email: email })
 
   if (emailUser) {
-    newUser.password = password
-    newUser.confirm_password = confirm_password
-    newUser.name = name
     newUser.message = 'The email is already in use.'
     return res.json(newUser)
   }
@@ -67,7 +58,7 @@ usersCtrl.signin = async (req, res) => {
   const token = jwt.sign({ _id: userFound._id }, process.env.SECRET, {
     expiresIn: 86400 // 24 hours
   })
-  res.json({ token: token})
+  res.json({ message: 'Successfuly Authenticated', token: token})
   /**
    * PASSPORT JS
    */

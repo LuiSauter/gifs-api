@@ -12,7 +12,6 @@ favsCtrl.getAllFavs = async (req, res) => {
 
 favsCtrl.createFav = async (req, res) => {
   const { fav } = req.body
-  console.log(fav)
   if (!fav) {
     return res.status(404).json({ message: false })
   }
