@@ -1,28 +1,35 @@
 const express = require('express')
 const cors = require('cors')
 const logger = require('./loggerMiddleware')
+const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const flash = require('connect-flash')
 const passport = require('passport')
 // Initializations
 const app = express()
-require('./config/passport')
 
 const notFound = require('./middleware/notFound')
 const handleErrors = require('./middleware/handleErrors')
 /**
  * Middleware
  */
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}))
 app.use(express.json())
 app.use(logger)
 app.use(session({
-  secret: 'secret',
+  secret: 'secretcode',
   resave: true,
   saveUninitialized: true
 }))
+
+app.use(cookieParser('secretcode'))
+
 app.use(passport.initialize())
 app.use(passport.session())
+require('./config/passport')
 app.use(flash())
 
 /**
