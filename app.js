@@ -14,7 +14,7 @@ const handleErrors = require('./middleware/handleErrors')
  * Middleware
  */
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://my-gifs.vercel.app',
   credentials: true
 }))
 app.use(express.json())
