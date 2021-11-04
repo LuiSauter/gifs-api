@@ -5,6 +5,9 @@ const favSchema = new Schema({
     type: String,
     required: true
   },
+  title: {
+    type: String
+  },
   user: {
     type: String,
     required: true
